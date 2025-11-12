@@ -1,7 +1,7 @@
-
 // Importation des classes nécessaires pour le hachage des mots de passe
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Optional;
 
 // Importation des classes User et UserRepository utilisées dans ce service
 import model.User;
