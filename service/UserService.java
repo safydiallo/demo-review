@@ -32,10 +32,10 @@ public class UserService {
      */
     public boolean registerUser(String username, String password) {
 
-        // Vérifie que les champs ne sont pas vides ou null
-        if (username == null || username.isBlank() || password == null || password.isBlank()) {
+        if (username == null || username.trim().isEmpty() || password == null || password.length() < 8) {
+        System.out.println("Nom d'utilisateur ou mot de passe invalide !");
         return false;
-        }
+    }
 
         // Vérifie si l'utilisateur existe déjà dans la base
         if (userRepository.existsByUsername(username)) {
@@ -95,5 +95,20 @@ public class UserService {
         userRepository.save(user);
         return true;
     }
+
+//Nouvelle branche cree par Djiby FALL
+    public boolean deleteUser(String username) {
+    if (username == null || username.isBlank()) {
+        return false;
+    }
+
+    Optional<User> userOpt = userRepository.findByUsername(username);
+    if (userOpt.isEmpty()) {
+        return false;
+    }
+
+    userRepository.delete(userOpt.get());
+    return true;
+}
 
 }
