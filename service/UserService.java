@@ -83,18 +83,6 @@ public class UserService {
         }
     }
 
-    // Nouvelle méthode ajoutée par Branch A
-    public boolean updatePassword(String username, String newPassword) {
-        if (username == null || username.isBlank() || newPassword == null || newPassword.isBlank()) {
-            return false;
-        }
-        Optional<User> opt = userRepository.findByUsername(username);
-        if (opt.isEmpty()) return false;
-        User user = opt.get();
-        user.setPassword(hashPassword(newPassword));
-        userRepository.save(user);
-        return true;
-    }
 
 //Nouvelle branche cree par Djiby FALL
     public boolean deleteUser(String username) {
