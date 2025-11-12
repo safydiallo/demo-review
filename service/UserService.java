@@ -33,8 +33,8 @@ public class UserService {
     public boolean registerUser(String username, String password) {
 
         // Vérifie que les champs ne sont pas vides ou null
-        if (username == null || password == null) {
-            return false;
+        if (username == null || username.isBlank() || password == null || password.isBlank()) {
+        return false;
         }
 
         // Vérifie si l'utilisateur existe déjà dans la base
@@ -81,6 +81,19 @@ public class UserService {
             // En cas d'erreur (algorithme non trouvé), on relance une exception
             throw new RuntimeException("Erreur lors du hachage du mot de passe", e);
         }
+    }
+
+    // Nouvelle méthode ajoutée par Branch A
+    public boolean updatePassword(String username, String newPassword) {
+        if (username == null || username.isBlank() || newPassword == null || newPassword.isBlank()) {
+            return false;
+        }
+        Optional<User> opt = userRepository.findByUsername(username);
+        if (opt.isEmpty()) return false;
+        User user = opt.get();
+        user.setPassword(hashPassword(newPassword));
+        userRepository.save(user);
+        return true;
     }
 
 }
